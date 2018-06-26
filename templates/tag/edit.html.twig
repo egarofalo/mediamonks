@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Edit Tag '~tag.id %}
+    
+{% block main %}
+    
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-12 col-md-10 col-lg-8 col-xl-7">     
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <h5 class="mb-0">Tag Data</h5>
+                    </div>
+
+                    {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'id': 'frm-tag-edit'}}) }}                
+
+                    <div class="card-body">
+                        
+                        {% include 'show-flash-messages.html.twig' %}                        
+
+                        {{ form_row(form.name, {'label': 'Name'}) }}
+                        
+                        {{ form_errors(form) }}
+
+                    </div>
+
+                    <div class="card-footer text-right">
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            <span>Edit</span>
+                            <span class="d-none">Saving... <i class="fa fa-refresh fa-spin fa-fw" aria-hidden="true"></i></span>
+                        </button>   
+                    </div>
+
+                    {{ form_end(form) }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script src="{{ asset('build/scripts/admin-tag.js') }}"></script>
+
+{% endblock %}

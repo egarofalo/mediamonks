@@ -1,0 +1,81 @@
+{% extends "base.html.twig" %}
+
+{% block title "Posts" %}
+
+{% block main %}
+
+    <div class="container">
+
+        {% include 'show-flash-messages.html.twig' %}
+
+        {% if pagination.getTotalItemCount > 0 %}
+
+            <div class="card">
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>{{ knp_pagination_sortable(pagination, 'Id', 'p.id') }}</th>
+                                <th>{{ knp_pagination_sortable(pagination, 'Title', 'p.title') }}</th>
+                                <th>User</th>
+                                <th>Tags</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for post in pagination %}
+                                <tr>
+                                    <td>{{ post.id }}</td>
+                                    <td>{{ post.title }}</td>
+                                    <td>{{ post.user.username }}</td>
+                                    <td>
+                                        {% if post.tags|length > 0 %}
+                                            {% for tag in post.tags %}
+                                                <span class="badge badge-info">{{ tag.name }}</span>
+                                            {% endfor %}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </td>
+                                    <td class="actions">
+                                        <a href="{{ path('admin_post_edit', {post_id: post.id}) }}" class="btn btn-info" title="Edit">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        </a>
+                                        <form action="{{ path('admin_post_delete', {post_id: post.id}) }}" method="post" class="d-inline-block">
+                                            <input type="hidden" name="token" value="{{ csrf_token('delete-post') }}">
+                                            <button type="submit" class="btn btn-danger" title="Delete">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}          
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="navigation text-center">
+                    {{ knp_pagination_render(pagination) }}
+                </div>            
+
+            </div>
+
+        {% else %}
+
+            <div class="alert alert-info text-center" role='alert'>
+                <p>No posts found</p>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script src="{{ asset('build/scripts/admin-post.js') }}"></script>
+
+{% endblock %}

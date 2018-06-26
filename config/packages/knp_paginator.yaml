@@ -1,0 +1,23 @@
+knp_paginator:
+    # number of links showed in the pagination menu (e.g: you have 10 pages, a page_range of 3, on the 5th page you'll see links to page 4, 5, 6)
+    page_range: 5
+    default_options:
+        # page query parameter name
+        page_name: page
+        # sort field query parameter name
+        sort_field_name: sort
+        # sort direction query parameter name
+        sort_direction_name: direction
+        # ensure distinct results, useful when ORM queries are using GROUP BY statements
+        distinct: true
+        # filter field query parameter name
+        filter_field_name: filterField
+        # filter value query parameter name
+        filter_value_name: filterValue
+    template:
+        # sliding pagination controls template
+        pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig'
+        # sort link template
+        sortable: '@KnpPaginator/Pagination/sortable_link.html.twig'
+        # filters template
+        filtration: '@KnpPaginator/Pagination/filtration.html.twig'

@@ -1,0 +1,10 @@
+{% extends 'bootstrap/alert.html.twig' %}
+
+{% block type 'danger' %}
+
+{% block content %}
+    <span class="mb-0 d-block">
+        <span class="initialism form-error-icon badge badge-danger">Error</span>
+        <span class="form-error-message">The CSRF token is invalid. Please try to resubmit the form.</span>
+    </span>
+{% endblock %}

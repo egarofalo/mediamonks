@@ -1,0 +1,14 @@
+
+###> symfony/framework-bundle ###
+/public/bundles/
+/public/build/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
+
+/nbproject/
+/node_modules/

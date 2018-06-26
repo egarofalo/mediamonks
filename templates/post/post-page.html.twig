@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+
+{% block title "Post details" %}
+
+{% block main %}
+
+    <div class="container">
+
+        <article class="post-container">
+
+            <h1 class="text-center">{{ post.title }}</h1>
+
+            {% if post.tags|length > 0 %}
+                <div class="tags">
+                    <b class="label">Tags:</b>
+                    {% for tag in post.tags %}
+                        <span class="badge badge-warning">{{ tag.name }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="content">
+                {{ post.body|raw }}
+            </div>
+
+            <footer class="bg-info">
+                <small><b>Author:</b> <i>{{ post.user.username }}</i></small>
+            </footer>
+
+        </article>
+
+    </div>
+
+{% endblock %}

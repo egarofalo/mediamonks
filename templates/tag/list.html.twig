@@ -1,0 +1,84 @@
+{% extends "base.html.twig" %}
+
+{% block title "Tags" %}
+
+{% block main %}
+
+    <div class="container">
+
+        {% include 'show-flash-messages.html.twig' %}
+
+        {% if pagination.getTotalItemCount > 0 %}
+
+            <div class="card">
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>{{ knp_pagination_sortable(pagination, 'Id', 't.id') }}</th>
+                                <th>{{ knp_pagination_sortable(pagination, 'Name', 't.name') }}</th>
+                                <th>{{ knp_pagination_sortable(pagination, 'Active', 't.active') }}</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tag in pagination %}
+                                <tr>
+                                    <td>{{ tag.id }}</td>
+                                    <td>{{ tag.name }}</td>
+                                    {% if tag.active %}
+                                        <td><span class="badge badge-success">YES</span></td>
+                                    {% else %}
+                                        <td><span class="badge badge-danger">NO</span></td>
+                                    {% endif %}
+                                    <td class="actions">
+                                        {% if tag.active %}
+                                            <a href="{{ path('admin_tag_edit', {tag_id: tag.id}) }}" class="btn btn-info" title="Edit">
+                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                            </a>
+                                            <form action="{{ path('admin_tag_delete', {tag_id: tag.id}) }}" method="post" class="d-inline-block">
+                                                <input type="hidden" name="token" value="{{ csrf_token('delete-tag') }}">
+                                                <button type="submit" class="btn btn-danger" title="Delete">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </button>
+                                            </form>
+                                        {% else %}
+                                            <form action="{{ path('admin_tag_restore', {tag_id: tag.id}) }}" method="post" class="d-inline-block">
+                                                <input type="hidden" name="token" value="{{ csrf_token('restore-tag') }}">
+                                                <button type="submit" class="btn btn-warning" title="Restore Tag">
+                                                    <i class="fa fa-undo" aria-hidden="true"></i>
+                                                </button>
+                                            </form>                                         
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}          
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="navigation text-center">
+                    {{ knp_pagination_render(pagination) }}
+                </div>            
+
+            </div>
+
+        {% else %}
+
+            <div class="alert alert-info text-center" role='alert'>
+                <p>No tags found</p>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script src="{{ asset('build/scripts/admin-tag.js') }}"></script>
+
+{% endblock %}

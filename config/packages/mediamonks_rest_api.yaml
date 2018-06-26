@@ -1,0 +1,6 @@
+mediamonks_rest_api:
+    # check if a request should be handled by this bundle
+    request_matcher:
+        path: /api
+    # configure the serializer which is used
+    serializer: jms

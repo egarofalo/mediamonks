@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>MediaMonks</title>
+        <!-- these styles now must be included in every page -->
+        <link rel="stylesheet" href="{{ asset('build/styles/app.css') }}">
+        <!-- here you link to the specific styles that each page needs -->
+        {% block stylesheets %}
+        {% endblock %}      
+    </head>
+    <body>
+        <header>
+            {% include 'header.html.twig' %}
+            <h1 class="text-center bg-secondary text-white p-2 mb-4">{% block title %}MediaMonks{% endblock %}</h1>
+        </header>
+        <main id="app-container">
+            {% block main %}
+            {% endblock %}
+        </main>
+        <!-- these scripts now must be included in every page -->
+        <script src="{{ asset('build/manifest.js') }}"></script>
+        <script src="{{ asset('build/scripts/vendor.js') }}"></script>
+        <!-- here you link to the specific scripts that each page needs -->
+        {% block javascripts %}
+        {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,61 @@
+security:
+    
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        in_memory: { memory: ~ }
+        
+        entity_provider:
+            entity:
+                class: App\Entity\User
+                property: username  
+            
+    # tell to Symfony what algorithm was used to encode the passwords
+    encoders:
+        
+        App\Entity\User:
+            algorithm: bcrypt    
+            
+    firewalls:
+        
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+            
+        main:
+            anonymous: true
+            provider: entity_provider
+            
+            form_login:
+                # the user is redirected here when they need to log in
+                login_path: admin_login
+                # submit the login form here
+                check_path: admin_login
+                # field names for the username and password fields
+                username_parameter: _username
+                password_parameter: _password
+                # csrf protection
+                csrf_token_generator: security.csrf.token_manager
+                csrf_parameter: _csrf_token
+                csrf_token_id: authenticate 
+                # change the page where the user is redirected to if no previous page was stored in the session
+                default_target_path: home
+                
+            logout:
+                path: /logout
+                target: /
+
+            # activate different ways to authenticate
+
+            # http_basic: true
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: true
+            # https://symfony.com/doc/current/security/form_login_setup.html
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }       

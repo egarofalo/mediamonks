@@ -1,0 +1,8 @@
+// the ~ allows you to reference things in node_modules
+
+// load bootstrap .scss files
+@import '~bootstrap/scss/bootstrap.scss';
+
+// load font-awesome .scss files and override the path to its icons
+$fa-font-path: "~font-awesome/fonts";
+@import '~font-awesome/scss/font-awesome.scss';

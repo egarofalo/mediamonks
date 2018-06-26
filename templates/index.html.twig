@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title "Welcome to MediaMonks Blog" %}
+
+{% block main %}
+        
+    {% if posts|length > 0 %}
+        <section class="container">
+        
+        {% for post in posts %}
+            <article class="post-list">
+                
+                <h2>
+                    <a href="{{ path('post_page', {post_id: post.id}) }}">{{ post.title }}</a>
+                </h2>
+                
+                <small><b>Author:</b> {{ post.user.username }}</small>
+                
+                <br>
+                
+                <a class="btn btn-warning post-link" href="{{ path('post_page', {post_id: post.id}) }}">Read more</a>
+                
+            </article>
+        {% endfor %}
+    
+        </section>
+    {% endif %}
+
+{% endblock %}
